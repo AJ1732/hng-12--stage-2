@@ -1,6 +1,7 @@
 import {
   ButtonLink,
   InputField,
+  SelectField,
   TextareaField,
   TicketButton,
 } from "@/components";
@@ -26,6 +27,17 @@ export default function Home() {
         placeholder="John Doe"
         autoComplete="name"
         required
+      />
+
+      <SelectField
+        label="Select a Role"
+        required
+        name="role"
+        options={[
+          { label: "Admin", value: "admin" },
+          { label: "User", value: "user" },
+          { label: "Guest", value: "guest" },
+        ]}
       />
 
       <TextareaField label="About the project" placeholder="Textarea" />
