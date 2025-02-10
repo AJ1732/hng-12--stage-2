@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Navigation } from "@/components";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -38,8 +39,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-roboto min-h-svh text-white antialiased`}>
-        {children}
+      <body
+        className={`font-roboto min-h-svh space-y-8 p-6 text-white antialiased`}
+      >
+        <Navigation />
+        <main>{children}</main>
       </body>
     </html>
   );
