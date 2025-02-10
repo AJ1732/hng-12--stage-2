@@ -38,6 +38,7 @@ export default {
         },
         "gray-900-20": "hsl(var(--gray-900-20))",
         "gray-900-10": "hsl(var(--gray-900-10))",
+        "neutral-light": "#AAAAAA",
       },
     },
   },

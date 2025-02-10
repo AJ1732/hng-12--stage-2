@@ -6,7 +6,13 @@ export default function Home() {
       <h1>Hello, World!</h1>
 
       <Button>Button</Button>
-      <InputField />
+
+      <InputField
+        label="Enter your name"
+        placeholder="John Doe"
+        autoComplete="name"
+        required
+      />
     </div>
   );
 }
