@@ -2,7 +2,7 @@ import { ButtonLink, InputField, TextareaField } from "@/components";
 
 export default function Home() {
   return (
-    <div className="space-y-8 px-6">
+    <div className="space-y-8 px-6 py-28">
       <h1>Hello, World!</h1>
 
       <div className="flex gap-4">
