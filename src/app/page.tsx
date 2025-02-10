@@ -1,4 +1,9 @@
-import { ButtonLink, InputField, TextareaField } from "@/components";
+import {
+  ButtonLink,
+  InputField,
+  TextareaField,
+  TicketButton,
+} from "@/components";
 
 export default function Home() {
   return (
@@ -24,6 +29,9 @@ export default function Home() {
       />
 
       <TextareaField label="About the project" placeholder="Textarea" />
+
+      <TicketButton label="regular access" left={20} price={"Free"} />
+      <TicketButton label="VIP Access " left={20} price={50} selected />
     </div>
   );
 }
