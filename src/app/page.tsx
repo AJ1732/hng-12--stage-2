@@ -1,11 +1,20 @@
-import { Button, InputField } from "@/components";
+import { ButtonLink, InputField } from "@/components";
 
 export default function Home() {
   return (
     <div className="px-6">
       <h1>Hello, World!</h1>
 
-      <Button>Button</Button>
+      <div className="flex gap-4 py-4">
+        <ButtonLink>Next</ButtonLink>
+        <ButtonLink variant={"outline"}>Cancel</ButtonLink>
+        <ButtonLink link="/" className="uppercase">
+          my tickets
+        </ButtonLink>
+        <ButtonLink link="/" className="uppercase" size={"sm"}>
+          my tickets
+        </ButtonLink>
+      </div>
 
       <InputField
         label="Enter your name"
