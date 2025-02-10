@@ -14,7 +14,7 @@ const InputField: React.FC<InputFieldProps> = ({
   ...props
 }) => {
   return (
-    <>
+    <div>
       {label && (
         <label
           htmlFor={name}
@@ -29,12 +29,12 @@ const InputField: React.FC<InputFieldProps> = ({
         name={name}
         required={required}
         className={cn(
-          "border-accent-200 placeholder:text-neutral-light focus-visible:ring-ring focus-visible:ring-primary-300 min-h-12 w-full rounded-xl border bg-transparent p-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          "border-accent-200 placeholder:text-neutral-light focus-visible:ring-primary-300 min-h-12 w-full rounded-xl border bg-transparent p-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           className,
         )}
         {...props}
       />
-    </>
+    </div>
   );
 };
 
