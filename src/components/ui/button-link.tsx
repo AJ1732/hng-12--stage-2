@@ -4,7 +4,7 @@ import { ArrowRightSVG } from "@/svgs";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center font-nanum justify-center gap-2 whitespace-nowrap rounded-lg text-base leading-none ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center font-nanum justify-center gap-2 whitespace-nowrap rounded-full text-base leading-none ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -15,7 +15,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-[3.25rem] px-6 py-4",
-        sm: "h-11 rounded-md px-4 py-3",
+        sm: "h-11 px-4 py-3",
       },
     },
     defaultVariants: {
@@ -46,7 +46,7 @@ const Button: React.FC<ButtonProps> = ({
         href={link}
         className={cn(buttonVariants({ variant: "link", size, className }))}
       >
-        <span className="-mb-1">{children}</span> <ArrowRightSVG />
+        <span className="-mb-0.5">{children}</span> <ArrowRightSVG />
       </Link>
     );
   }
@@ -56,7 +56,7 @@ const Button: React.FC<ButtonProps> = ({
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     >
-      <span className="-mb-1">{children}</span>
+      <span className="-mb-0.5">{children}</span>
     </button>
   );
 };
