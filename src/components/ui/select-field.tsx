@@ -34,6 +34,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
 
       {/* SELECT TRIGGER */}
       <div
+        id={name}
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={() => {
           setTimeout(() => setIsOpen(true), 100);

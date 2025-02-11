@@ -25,6 +25,8 @@ const Textarea: React.FC<TextareaProps> = ({
       )}
 
       <textarea
+        id={name}
+        name={name}
         className={cn(
           "border-input placeholder:text-muted-foreground focus-visible:ring-primary-300 border-accent-200 flex min-h-[80px] w-full rounded-xl border bg-transparent p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           className,

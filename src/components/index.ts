@@ -7,3 +7,6 @@ export { default as InputField } from "./ui/input-field";
 export { default as TextareaField } from "./ui/textarea-field";
 export { default as TicketButton } from "./ui/ticket-button";
 export { default as SelectField } from "./ui/select-field";
+
+// CUSTOM COMPONENTS
+export { default as MultiStepForm } from "./custom/MultistepForm";

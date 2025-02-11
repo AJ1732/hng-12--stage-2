@@ -1,7 +1,10 @@
+import { FormProvider } from "@/provider/form-context";
+import { MultiStepForm } from "@/components";
+
 export default function Home() {
   return (
-    <div>
-      <section>FORM</section>
-    </div>
+    <FormProvider>
+      <MultiStepForm />
+    </FormProvider>
   );
 }

@@ -25,6 +25,7 @@ const InputField: React.FC<InputFieldProps> = ({
       )}
 
       <input
+        id={name}
         type={type}
         name={name}
         required={required}
