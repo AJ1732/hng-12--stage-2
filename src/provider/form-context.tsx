@@ -1,16 +1,30 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { openDB } from "idb";
+import { FormSchema, Step1Schema, Step2Schema, FormData } from "@/schema/form";
+import { z } from "zod";
 
 const DB_NAME = "MultiStepFormDB";
 const STORE_NAME = "FormStore";
-const STEP_KEY = "formStep";
 
-const FormContext = createContext<any>(null);
+interface FormContextType {
+  step: number;
+  updateStep: (newStep: number) => void;
+  formData: FormData;
+  updateForm: (data: Partial<FormData>) => void;
+  validateStep: () => boolean;
+  validateField: (name: keyof FormData, value: string) => void;
+  errors: Partial<Record<keyof FormData, string>>;
+}
+
+const FormContext = createContext<FormContextType | null>(null);
 
 export const FormProvider = ({ children }: { children: React.ReactNode }) => {
-  const [formData, setFormData] = useState({ name: "", email: "" });
   const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState<FormData>({ name: "", email: "" });
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
+    {},
+  );
 
   useEffect(() => {
     const loadData = async () => {
@@ -20,17 +34,21 @@ export const FormProvider = ({ children }: { children: React.ReactNode }) => {
         },
       });
 
-      const data = await db.get(STORE_NAME, "formData");
-      if (data) setFormData(data);
+      const savedData = await db.get(STORE_NAME, "formData");
+      if (savedData) {
+        setFormData(savedData);
+      }
 
-      const savedStep = await db.get(STORE_NAME, STEP_KEY);
-      if (savedStep) setStep(savedStep);
+      const savedStep = await db.get(STORE_NAME, "step");
+      if (savedStep) {
+        setStep(savedStep);
+      }
     };
 
     loadData();
   }, []);
 
-  const updateForm = async (data: any) => {
+  const updateForm = async (data: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...data }));
 
     const db = await openDB(DB_NAME, 1);
@@ -41,14 +59,79 @@ export const FormProvider = ({ children }: { children: React.ReactNode }) => {
     setStep(newStep);
 
     const db = await openDB(DB_NAME, 1);
-    await db.put(STORE_NAME, newStep, STEP_KEY);
+    await db.put(STORE_NAME, newStep, "step");
+  };
+
+  const validateField = (name: keyof FormData, value: string) => {
+    let schema: z.ZodObject<any>;
+
+    if (step === 1) {
+      schema = Step1Schema;
+    } else if (step === 2) {
+      schema = Step2Schema;
+    } else {
+      return;
+    }
+
+    const result = schema.safeParse({ ...formData, [name]: value });
+
+    if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors;
+      setErrors((prev) => ({
+        ...prev,
+        [name]: fieldErrors[name]?.[0] || "",
+      }));
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+
+  const validateStep = () => {
+    let schema: z.ZodObject<any>;
+
+    if (step === 1) {
+      schema = Step1Schema;
+    } else if (step === 2) {
+      schema = Step2Schema;
+    } else {
+      return true;
+    }
+
+    const result = schema.safeParse(formData);
+
+    if (!result.success) {
+      const newErrors = result.error.flatten().fieldErrors;
+      setErrors(newErrors as Partial<Record<keyof FormData, string>>);
+      return false;
+    }
+
+    setErrors({});
+    return true;
   };
 
   return (
-    <FormContext.Provider value={{ formData, updateForm, step, updateStep }}>
+    <FormContext.Provider
+      value={{
+        step,
+        updateStep,
+        formData,
+        updateForm,
+        validateStep,
+        validateField,
+        errors,
+      }}
+    >
       {children}
     </FormContext.Provider>
   );
 };
 
-export const useFormContext = () => useContext(FormContext);
+export const useFormContext = () => {
+  const context = useContext(FormContext);
+  if (!context)
+    throw new Error("useFormContext must be used within FormProvider");
+  return context;
+};

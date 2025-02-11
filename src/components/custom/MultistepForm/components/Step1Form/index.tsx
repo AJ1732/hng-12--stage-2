@@ -13,7 +13,6 @@ const Step1Form = () => {
         label="Name"
         value={formData.name}
         onChange={(e) => updateForm({ name: e.target.value })}
-        errorMessage="This field is required"
         required
       />
     </Fieldset>

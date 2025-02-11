@@ -1,23 +1,28 @@
-"use client"
+"use client";
 import { useState } from "react";
+import { useFormContext } from "@/provider/form-context";
+import { FormData } from "@/schema/form";
 import { cn } from "@/lib/utils";
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   className?: string;
-  errorMessage?: string; // For validation errors
 }
 
 const InputField: React.FC<InputFieldProps> = ({
   type,
-  name,
+  name = "",
   label,
   className,
   required,
-  errorMessage,
   ...props
 }) => {
+  const { errors, validateField } = useFormContext();
   const [isTouched, setIsTouched] = useState(false);
+
+  const fieldName = name as keyof FormData;
+
+  const errorMessage = fieldName in errors ? errors[fieldName] : "";
 
   return (
     <div>
@@ -36,11 +41,16 @@ const InputField: React.FC<InputFieldProps> = ({
         name={name}
         required={required}
         className={cn(
-          "border-accent-200 placeholder:text-neutral-light focus-visible:ring-primary-300 min-h-12 w-full rounded-xl border bg-transparent p-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          isTouched && errorMessage ? "border-red-500" : "",
+          "min-h-12 w-full rounded-xl border border-accent-200 bg-transparent p-3 placeholder:text-neutral-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          isTouched && errorMessage && "border-red-500",
           className,
         )}
-        onBlur={() => setIsTouched(true)}
+        onBlur={(e) => {
+          setIsTouched(true);
+          if (fieldName in errors) {
+            validateField(fieldName, e.target.value);
+          }
+        }}
         {...props}
       />
 

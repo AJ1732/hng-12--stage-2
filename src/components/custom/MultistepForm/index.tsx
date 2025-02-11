@@ -4,25 +4,33 @@ import { Step1Form, Step2Form } from "./components";
 import { ButtonLink } from "@/components";
 
 const MultiStepForm = () => {
-  const { step, updateStep, formData } = useFormContext();
+  const { step, updateStep, validateStep, formData } = useFormContext();
 
   const steps = [<Step1Form />, <Step2Form />];
 
-  const nextStep = () => updateStep(Math.min(step + 1, steps.length));
-  const prevStep = () => updateStep(Math.max(step - 1, 1));
+  const nextStep = () => {
+    if (validateStep() && step < steps.length) {
+      updateStep(step + 1);
+    }
+  };
+
+  const prevStep = () => updateStep(step - 1);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitted Form Data:", formData);
+    if (validateStep() && step === steps.length) {
+      console.log("Submitted Form Data:", formData);
+      // Handle actual submission (e.g., send data to API)
+    }
   };
 
   return (
-    <section className="bg-accent-300 border-accent-100 mx-auto max-w-[43.75rem] space-y-8 rounded-[2.5rem] border p-12">
+    <section className="mx-auto max-w-[43.75rem] space-y-8 rounded-[2.5rem] border border-accent-100 bg-accent-300 p-12">
       <div>Steps</div>
 
       <form
         onSubmit={handleSubmit}
-        className="border-accent-100 bg-accent-600 rounded-[2rem] border p-6"
+        className="rounded-[2rem] border border-accent-100 bg-accent-600 p-6"
       >
         {steps[step - 1]}
 
