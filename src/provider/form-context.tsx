@@ -9,7 +9,7 @@ const STEP_KEY = "formStep";
 const FormContext = createContext<any>(null);
 
 export const FormProvider = ({ children }: { children: React.ReactNode }) => {
-  const [formData, setFormData] = useState({ name: "", email: "", age: "" });
+  const [formData, setFormData] = useState({ name: "", email: "" });
   const [step, setStep] = useState(1);
 
   useEffect(() => {

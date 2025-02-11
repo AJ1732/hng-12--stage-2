@@ -1,11 +1,11 @@
 import { useFormContext } from "@/provider/form-context";
-import { InputField } from "@/components";
+import { Fieldset, InputField } from "@/components";
 
 const Step1Form = () => {
   const { formData, updateForm } = useFormContext();
 
   return (
-    <fieldset>
+    <Fieldset>
       <InputField
         id="name"
         name="name"
@@ -13,9 +13,10 @@ const Step1Form = () => {
         label="Name"
         value={formData.name}
         onChange={(e) => updateForm({ name: e.target.value })}
+        errorMessage="This field is required"
         required
       />
-    </fieldset>
+    </Fieldset>
   );
 };
 

@@ -9,4 +9,5 @@ export { default as TicketButton } from "./ui/ticket-button";
 export { default as SelectField } from "./ui/select-field";
 
 // CUSTOM COMPONENTS
+export { default as Fieldset } from "./custom/Fieldset";
 export { default as MultiStepForm } from "./custom/MultistepForm";

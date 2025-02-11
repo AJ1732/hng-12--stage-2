@@ -1,11 +1,11 @@
 import { useFormContext } from "@/provider/form-context";
-import { InputField } from "@/components";
+import { Fieldset, InputField } from "@/components";
 
 const Step2Form = () => {
   const { formData, updateForm } = useFormContext();
 
   return (
-    <fieldset>
+    <Fieldset>
       <InputField
         id="email"
         name="email"
@@ -15,7 +15,7 @@ const Step2Form = () => {
         onChange={(e) => updateForm({ email: e.target.value })}
         required
       />
-    </fieldset>
+    </Fieldset>
   );
 };
 
