@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { assets } from "@/assets";
-import { ButtonLink } from "@/components";
+// import { ButtonLink } from "@/components";
 
 const navlinks = [
   {
@@ -51,7 +51,7 @@ const Navigation = () => {
           ))}
         </ul>
 
-        <ButtonLink link="/tickets">MY TICKETS</ButtonLink>
+        {/* <ButtonLink link="/tickets">MY TICKETS</ButtonLink> */}
       </nav>
     </header>
   );
