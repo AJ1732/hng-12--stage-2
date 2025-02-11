@@ -1,3 +1,9 @@
+import { MultiStepForm } from "@/components";
+
 export default function Home() {
-  return <p>Hello, World!</p>;
+  return (
+    <main>
+      <MultiStepForm />
+    </main>
+  );
 }

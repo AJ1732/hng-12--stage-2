@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { assets } from "@/assets";
-// import { ButtonLink } from "@/components";
+import { ButtonLink } from "@/components/ui/button-link";
 
 const navlinks = [
   {
@@ -19,10 +19,10 @@ const navlinks = [
 
 const Navigation = () => {
   return (
-    <header className="border-primary-400 mx-auto max-w-[75rem] rounded-full border p-3 pl-6 backdrop-blur-[2px]">
+    <header className="mx-auto max-w-[75rem] rounded-3xl border border-primary-400 p-3 pl-6 backdrop-blur-[2px]">
       <nav className="flex items-center justify-between gap-4">
         <figure className="relative flex items-center justify-start gap-2">
-          <div className="border-accent-100 flex h-9 w-10 items-center justify-center rounded-xl border bg-[#052F35] px-2 py-1.5">
+          <div className="flex h-9 w-10 items-center justify-center rounded-xl border border-accent-100 bg-[#052F35] px-2 py-1.5">
             <Image
               src={assets["logo-ticket"]}
               alt="ticz logo"
@@ -40,7 +40,7 @@ const Navigation = () => {
           />
         </figure>
 
-        <ul className="font-nanum flex items-center justify-center gap-4">
+        <ul className="flex items-center justify-center gap-4 font-nanum">
           {navlinks.map(({ name, link }) => (
             <li
               key={link}
@@ -51,7 +51,7 @@ const Navigation = () => {
           ))}
         </ul>
 
-        {/* <ButtonLink link="/tickets">MY TICKETS</ButtonLink> */}
+        <ButtonLink link="/tickets">MY TICKETS</ButtonLink>
       </nav>
     </header>
   );
