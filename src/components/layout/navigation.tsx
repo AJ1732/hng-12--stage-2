@@ -41,9 +41,9 @@ const Navigation = () => {
         </figure>
 
         <ul className="flex items-center justify-center gap-4 font-nanum max-md:hidden">
-          {navlinks.map(({ name, link }) => (
+          {navlinks.map(({ name }) => (
             <li
-              key={link}
+              key={name}
               className="cursor-pointer p-2.5 text-lg capitalize text-[#B3B3B3] transition-colors duration-200 ease-in-out hover:text-white"
             >
               {name}
