@@ -1,15 +1,12 @@
 "use client";
 import Image from "next/image";
 import { useMultiForm } from "@/provider/multiform";
-import { TicketCardSVG } from "@/svgs";
 import { assets } from "@/assets";
 
 const StepThree: React.FC = () => {
   const { form } = useMultiForm();
 
   const {
-    about_project,
-    email,
     name,
     number_of_tickets,
     profile_photo,
