@@ -21,10 +21,23 @@ const StepsTracker = () => {
     }
   };
 
+  const getHeaderText = () => {
+    switch (step) {
+      case 1:
+        return "Ticket Selection";
+      case 2:
+        return "Attendee Details";
+      case 3:
+        return "Ready";
+      default:
+        return "Error";
+    }
+  };
+
   return (
     <header className="w-full space-y-4">
       <div className="flex items-center justify-between gap-4">
-        <h2 className="font-nanum text-[2rem]">Ticket Selection</h2>
+        <h2 className="font-nanum text-[2rem]">{getHeaderText()}</h2>
 
         <span className="font-roboto text-base font-normal leading-[150%]">
           Step {step}/{totalSteps}

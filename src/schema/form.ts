@@ -1,18 +1,35 @@
 import { z } from "zod";
 
 export const StepOneSchema = z.object({
-  name: z
-    .string()
-    .min(2, "Name must be at least 2 characters")
-    .max(50, "Name must be less than 50 characters")
-    .regex(/^[A-Za-z\s'-]+$/, "Name can only contain letters, spaces, hyphens, and apostrophes"),
+  ticket_type: z.enum(["regular", "vip", "vvip"], {
+    required_error: "Ticket type is required",
+    invalid_type_error: "Invalid ticket type",
+  }),
+  number_of_tickets: z
+    .number({
+      required_error: "Number of tickets is required",
+      invalid_type_error: "Number of tickets must be a number",
+    })
+    .min(1, { message: "At least 1 ticket is required" }),
 });
 
 export const StepTwoSchema = z.object({
+  profile_photo: z
+    .string({ required_error: "Profile photo is required" })
+    .url("Profile photo must be a valid URL"),
+  name: z
+    .string({
+      required_error: "Name is required",
+      invalid_type_error: "Name must be a string",
+    })
+    .min(1, "Name is required"),
   email: z
-    .string()
-    .email("Invalid email address")
-    .nonempty("Email is required"),
+    .string({
+      required_error: "Email is required",
+      invalid_type_error: "Email must be a string",
+    })
+    .email("Invalid email address"),
+  about_project: z.string().optional(),
 });
 
 export const FormSchema = StepOneSchema.merge(StepTwoSchema);

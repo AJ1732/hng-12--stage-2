@@ -46,8 +46,8 @@ const MultiStepForm: React.FC = () => {
     if (step === 3) return true;
 
     const stepFields: StepFields = {
-      1: ["name"],
-      2: ["email"],
+      1: ["ticket_type", "number_of_tickets"],
+      2: ["profile_photo", "name", "email", "about_project"],
     };
 
     const fieldsToValidate = stepFields[step];
@@ -121,7 +121,7 @@ const MultiStepForm: React.FC = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="rounded-[2rem] border border-accent-100 bg-accent-600 p-6"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             <motion.div
               key={`step-${step}`}
               variants={CONTAINER_VARIANTS}
@@ -133,7 +133,7 @@ const MultiStepForm: React.FC = () => {
             </motion.div>
           </AnimatePresence>
 
-          <div className="mt-4 flex justify-between gap-4 [&>button]:w-full">
+          <div className="mt-8 flex justify-between gap-4 [&>button]:w-full">
             <ButtonLink
               type="button"
               variant="outline"

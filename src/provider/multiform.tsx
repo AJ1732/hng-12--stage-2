@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema, FormData } from "@/schema/form";
@@ -28,8 +28,12 @@ export const MultiFormProvider: React.FC<{ children: React.ReactNode }> = ({
     resolver: zodResolver(FormSchema),
     mode: "onBlur",
     defaultValues: {
+      ticket_type: "regular",
+      number_of_tickets: 1,
+      profile_photo: "",
       name: "",
       email: "",
+      about_project: "",
     },
   });
 
@@ -38,13 +42,9 @@ export const MultiFormProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         const savedData = await getFormData();
         if (savedData) {
-          form.reset(savedData);
-          if (savedData.step) {
-            setStep(savedData.step);
-          }
-          if (savedData.isFormSubmitted) {
-            setIsFormSubmitted(true);
-          }
+          form.reset(savedData.formData); 
+          setStep(savedData.currentStep);
+          setIsFormSubmitted(savedData.isFormSubmitted);
         }
       } catch (error) {
         console.error("Error loading saved data:", error);
@@ -57,16 +57,23 @@ export const MultiFormProvider: React.FC<{ children: React.ReactNode }> = ({
     const saveData = async () => {
       try {
         await saveFormData({
-          ...form.getValues(),
-          step,
+          formData: form.getValues(),
+          currentStep: step,
           isFormSubmitted,
         });
       } catch (error) {
         console.error("Error saving data:", error);
       }
     };
+
+    const subscription = form.watch(() => {
+      saveData();
+    });
+
     saveData();
-  }, [form.watch(), step, isFormSubmitted]);
+
+    return () => subscription.unsubscribe();
+  }, [form, step, isFormSubmitted]);
 
   return (
     <MultiFormContext.Provider
