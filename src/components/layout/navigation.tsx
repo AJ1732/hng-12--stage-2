@@ -5,15 +5,15 @@ import { ButtonLink } from "@/components/ui/button-link";
 const navlinks = [
   {
     name: "event",
-    link: "/events",
+    link: "/",
   },
   {
     name: "my tickets",
-    link: "/tickets",
+    link: "/",
   },
   {
     name: "about project",
-    link: "/about",
+    link: "/",
   },
 ];
 
@@ -40,7 +40,7 @@ const Navigation = () => {
           />
         </figure>
 
-        <ul className="flex items-center justify-center gap-4 font-nanum">
+        <ul className="flex items-center justify-center gap-4 font-nanum max-md:hidden">
           {navlinks.map(({ name, link }) => (
             <li
               key={link}
@@ -51,7 +51,9 @@ const Navigation = () => {
           ))}
         </ul>
 
-        <ButtonLink link="/">MY TICKETS</ButtonLink>
+        <ButtonLink link="/" size={"sm-d"}>
+          MY TICKETS
+        </ButtonLink>
       </nav>
     </header>
   );
