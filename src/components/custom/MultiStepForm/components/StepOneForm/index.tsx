@@ -29,7 +29,7 @@ const StepOne: React.FC = () => {
 
   return (
     <fieldset className="space-y-8">
-      <header className="after:bg-custom-radial relative flex min-h-52 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-accent-200 p-6 text-center after:absolute after:inset-0 after:blur-[7px] after:content-['']">
+      <header className="relative flex min-h-52 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-accent-200 p-6 text-center after:absolute after:inset-0 after:bg-custom-radial after:blur-[7px] after:content-['']">
         <h1 className="font-road-rage text-[3.875rem] leading-[100%]">
           Techember Fest ”25
         </h1>
@@ -58,6 +58,7 @@ const StepOne: React.FC = () => {
               <RadioGroup
                 onValueChange={field.onChange}
                 defaultValue={field.value}
+                value={field.value}
                 className="grid gap-6 rounded-3xl border border-accent-200 bg-accent-700 p-4 sm:grid-cols-2"
               >
                 {ticketOptions.map((ticket) => (
@@ -80,6 +81,7 @@ const StepOne: React.FC = () => {
               <Select
                 onValueChange={(value) => field.onChange(Number(value))}
                 defaultValue={String(field.value)}
+                value={String(field.value)}
               >
                 <FormControl>
                   <SelectTrigger>
