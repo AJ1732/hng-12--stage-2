@@ -12,6 +12,7 @@ import {
 } from "./components";
 import { FormData } from "@/schema/form";
 import { initDB, STORE_NAME } from "@/lib/indexedDB";
+import { cn } from "@/lib/utils";
 
 const CONTAINER_VARIANTS = {
   hidden: { opacity: 0, y: 20 },
@@ -112,16 +113,21 @@ const MultiStepForm: React.FC = () => {
     }
   };
 
+  const last_step = step === 3;
+
   return (
-    <section className="mx-auto max-w-[43.75rem] space-y-8 rounded-[2.5rem] border border-accent-100 bg-accent-300 p-12">
+    <section className="mx-auto max-w-[43.75rem] space-y-8 rounded-[2.5rem] border border-accent-100 bg-accent-300 px-6 py-8 md:p-12">
       <StepsTracker />
 
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="rounded-[2rem] border border-accent-100 bg-accent-600 p-6"
+          className={cn(
+            "rounded-[2rem] border border-accent-100 bg-accent-600 p-6",
+            last_step && "border-none bg-transparent p-0",
+          )}
         >
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             <motion.div
               key={`step-${step}`}
               variants={CONTAINER_VARIANTS}
@@ -133,7 +139,7 @@ const MultiStepForm: React.FC = () => {
             </motion.div>
           </AnimatePresence>
 
-          <div className="mt-8 flex justify-between gap-4 [&>button]:w-full">
+          <div className="mt-8 flex justify-between gap-4 max-md:flex-col [&>button]:w-full">
             <ButtonLink
               type="button"
               variant="outline"

@@ -21,12 +21,12 @@ const TicketRadioButton: React.FC<TicketRadioButtonProps> = ({
     <RadioGroupPrimitive.Item
       value={value}
       className={cn(
-        "flex w-full max-w-[16rem] justify-between gap-2 rounded-xl border border-accent-200 p-2 pl-2.5 text-gray-100",
+        "flex w-full justify-between gap-2 rounded-xl border border-accent-200 p-2 pl-2.5 text-gray-100 md:max-w-[16rem]",
         "data-[state=checked]:bg-primary-400",
       )}
     >
-      <div className="flex flex-col items-start">
-        <h4 className="font-medium uppercase">{label}</h4>
+      <div className="flex flex-col items-start text-left">
+        <h4 className="line-clamp-1 uppercase">{label} ACCESS</h4>
         <p className="text-sm leading-[150%]">{left} left!</p>
       </div>
 

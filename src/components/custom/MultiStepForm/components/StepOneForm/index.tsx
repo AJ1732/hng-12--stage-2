@@ -30,18 +30,18 @@ const StepOne: React.FC = () => {
   return (
     <fieldset className="space-y-8">
       <header className="relative flex min-h-52 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-accent-200 p-6 text-center after:absolute after:inset-0 after:bg-custom-radial after:blur-[7px] after:content-['']">
-        <h1 className="font-road-rage text-[3.875rem] leading-[100%]">
+        <h1 className="font-road-rage text-5xl leading-[100%] md:text-[3.875rem]">
           Techember Fest ”25
         </h1>
 
-        <p>
-          Join us for an unforgettable experience at <br /> [Event Name]! Secure
-          your spot now.
+        <p className="max-md:px-8 max-md:text-sm">
+          Join us for an unforgettable experience at{" "}
+          <br className="max-md:hidden" /> [Event Name]! Secure your spot now.
         </p>
 
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-2 max-md:mt-4 max-md:flex-col md:gap-4">
           <p>📍 [Event Location]</p>
-          <span>| |</span>
+          <span className="max-md:hidden">| |</span>
           <p>March 15, 2025 | 7:00 PM</p>
         </div>
       </header>
@@ -57,7 +57,6 @@ const StepOne: React.FC = () => {
             <FormControl>
               <RadioGroup
                 onValueChange={field.onChange}
-                defaultValue={field.value}
                 value={field.value}
                 className="grid gap-6 rounded-3xl border border-accent-200 bg-accent-700 p-4 sm:grid-cols-2"
               >
@@ -80,7 +79,6 @@ const StepOne: React.FC = () => {
             <FormControl>
               <Select
                 onValueChange={(value) => field.onChange(Number(value))}
-                defaultValue={String(field.value)}
                 value={String(field.value)}
               >
                 <FormControl>

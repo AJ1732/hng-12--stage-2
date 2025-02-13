@@ -35,9 +35,11 @@ const StepsTracker = () => {
   };
 
   return (
-    <header className="w-full space-y-4">
-      <div className="flex items-center justify-between gap-4">
-        <h2 className="font-nanum text-[2rem]">{getHeaderText()}</h2>
+    <header className="w-full space-y-3 md:space-y-4">
+      <div className="flex items-start justify-between gap-2 max-md:flex-col md:items-center md:gap-4">
+        <h2 className="font-nanum text-2xl md:text-[2rem]">
+          {getHeaderText()}
+        </h2>
 
         <span className="font-roboto text-base font-normal leading-[150%]">
           Step {step}/{totalSteps}
