@@ -6,12 +6,8 @@ import { assets } from "@/assets";
 const StepThree: React.FC = () => {
   const { form } = useMultiForm();
 
-  const {
-    name,
-    number_of_tickets,
-    profile_photo,
-    ticket_type,
-  } = form.getValues();
+  const { name, email, number_of_tickets, profile_photo, ticket_type } =
+    form.getValues();
 
   return (
     <section className="">
@@ -47,7 +43,7 @@ const StepThree: React.FC = () => {
                   📍 04 Rumens road, Ikoyi, Lagos
                 </p>
                 <p className="text-xs font-light leading-6 md:text-base">
-                  📅 March 15, 2025 | 7:00 PM
+                  📧 {email}
                 </p>
                 {ticket_type && (
                   <Image
@@ -88,7 +84,7 @@ const StepThree: React.FC = () => {
               <p className="font-road-rage text-xs md:text-lg">
                 Techember Fest ”25
               </p>
-              <p className="line-clamp-1 text-[0.5rem] font-light leading-normal md:text-xs">
+              <p className="line-clamp-1 text-sm font-light leading-normal md:text-base">
                 {name}
               </p>
             </div>

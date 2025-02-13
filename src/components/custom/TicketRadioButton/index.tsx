@@ -21,7 +21,7 @@ const TicketRadioButton: React.FC<TicketRadioButtonProps> = ({
     <RadioGroupPrimitive.Item
       value={value}
       className={cn(
-        "flex w-full justify-between gap-2 rounded-xl border border-accent-200 p-2 pl-2.5 text-gray-100 md:max-w-[16rem]",
+        "flex w-full justify-between gap-2 rounded-xl border border-accent-200 p-2 pl-2.5 text-gray-100 hover:bg-accent-500 md:max-w-[16rem]",
         "data-[state=checked]:bg-primary-400",
       )}
     >
