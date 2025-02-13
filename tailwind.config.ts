@@ -86,9 +86,6 @@ export default {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
-			backgroundImage: {
-        'custom-radial': "radial-gradient(57.42% 106.59% at 14.02% 32.06%, rgba(36, 160, 181, 0.20) 0%, rgba(36, 160, 181, 0) 100%), rgba(10, 12, 17, 0.10)",
-      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

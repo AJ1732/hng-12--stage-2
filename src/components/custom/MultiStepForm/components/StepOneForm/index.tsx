@@ -29,7 +29,7 @@ const StepOne: React.FC = () => {
 
   return (
     <fieldset className="space-y-8">
-      <header className="relative flex min-h-52 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border-2 border-t-0 border-accent-200 p-6 text-center after:absolute after:inset-0 after:bg-accent-500 after:bg-custom-radial after:blur-[7px] after:content-[''] [&>*]:relative [&>*]:z-[2]">
+      <header className="relative flex min-h-52 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border-2 border-t-0 border-accent-200 bg-custom-radial p-6 text-center after:absolute after:inset-0 after:blur-[7px] after:content-[''] [&>*]:relative [&>*]:z-[2]">
         <h1 className="font-road-rage text-5xl leading-[100%] md:text-[3.875rem]">
           Techember Fest ”25
         </h1>
