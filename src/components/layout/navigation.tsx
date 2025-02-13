@@ -51,7 +51,7 @@ const Navigation = () => {
           ))}
         </ul>
 
-        <ButtonLink link="/tickets">MY TICKETS</ButtonLink>
+        <ButtonLink link="/">MY TICKETS</ButtonLink>
       </nav>
     </header>
   );
