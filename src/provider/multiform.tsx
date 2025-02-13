@@ -1,93 +1,83 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { openDB } from "idb";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { FormSchema, FormData } from "@/schema/form";
+import { saveFormData, getFormData } from "@/lib/indexedDB";
 
-// Define the validation schema for the multi‑step form.
-export const MultiStepFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Invalid email address." }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters." }),
-});
-
-export type MultiStepFormData = z.infer<typeof MultiStepFormSchema>;
-
-const DB_NAME = "MultiStepFormDB";
-const STORE_NAME = "FormStore";
-
-// Context value now holds the react‑hook‑form control plus current step.
 interface MultiFormContextType {
-  form: UseFormReturn<MultiStepFormData>;
+  form: UseFormReturn<FormData>;
   step: number;
-  setStep: (newStep: number) => void;
+  setStep: (step: number) => void;
+  isFormSubmitted: boolean;
+  setIsFormSubmitted: (value: boolean) => void;
 }
 
-const MultiFormContext = createContext<MultiFormContextType | undefined>(undefined);
+const MultiFormContext = createContext<MultiFormContextType | undefined>(
+  undefined,
+);
 
-export const MultiFormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Create the react‑hook‑form control with Zod validation.
-  const form = useForm<MultiStepFormData>({
-    resolver: zodResolver(MultiStepFormSchema),
+export const MultiFormProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [step, setStep] = useState(1);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
+  const form = useForm<FormData>({
+    resolver: zodResolver(FormSchema),
+    mode: "onBlur",
     defaultValues: {
       name: "",
       email: "",
-      password: "",
     },
   });
 
-  const [step, setStepState] = useState<number>(1);
-  // Subscribe to all form field changes.
-  const watchedValues = form.watch();
-
-  // On mount, load persisted form values and step from IndexedDB.
   useEffect(() => {
-    const loadData = async () => {
-      const db = await openDB(DB_NAME, 1, {
-        upgrade(db) {
-          if (!db.objectStoreNames.contains(STORE_NAME)) {
-            db.createObjectStore(STORE_NAME);
+    const loadSavedData = async () => {
+      try {
+        const savedData = await getFormData();
+        if (savedData) {
+          form.reset(savedData);
+          if (savedData.step) {
+            setStep(savedData.step);
           }
-        },
-      });
-      const savedFormData = await db.get(STORE_NAME, "formData");
-      const savedStep = await db.get(STORE_NAME, "formStep");
-      if (savedFormData) {
-        form.reset(savedFormData);
-      }
-      if (savedStep) {
-        setStepState(savedStep);
+          if (savedData.isFormSubmitted) {
+            setIsFormSubmitted(true);
+          }
+        }
+      } catch (error) {
+        console.error("Error loading saved data:", error);
       }
     };
-    loadData();
-    // We depend on "form" only on mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    loadSavedData();
   }, []);
 
-  // Persist form values and step to IndexedDB whenever they change.
   useEffect(() => {
-    const persistData = async () => {
-      const db = await openDB(DB_NAME, 1);
-      await db.put(STORE_NAME, watchedValues, "formData");
-      await db.put(STORE_NAME, step, "formStep");
+    const saveData = async () => {
+      try {
+        await saveFormData({
+          ...form.getValues(),
+          step,
+          isFormSubmitted,
+        });
+      } catch (error) {
+        console.error("Error saving data:", error);
+      }
     };
-    persistData();
-  }, [watchedValues, step]);
-
-  const setStep = (newStep: number) => {
-    setStepState(newStep);
-  };
+    saveData();
+  }, [form.watch(), step, isFormSubmitted]);
 
   return (
-    <MultiFormContext.Provider value={{ form, step, setStep }}>
+    <MultiFormContext.Provider
+      value={{ form, step, setStep, isFormSubmitted, setIsFormSubmitted }}
+    >
       {children}
     </MultiFormContext.Provider>
   );
 };
 
-export const useMultiForm = (): MultiFormContextType => {
+export const useMultiForm = () => {
   const context = useContext(MultiFormContext);
   if (!context) {
     throw new Error("useMultiForm must be used within a MultiFormProvider");
