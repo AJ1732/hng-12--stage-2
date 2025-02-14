@@ -36,13 +36,13 @@ const StepThree: React.FC = () => {
               </figure>
 
               <div className="relative max-md:py-3.5">
-                <h3 className="px-2 font-road-rage text-2xl md:mb-1 md:text-5xl">
+                <h3 className="px-2 font-road-rage text-2xl sm:text-4xl md:mb-1 md:text-5xl">
                   Techember <br className="max-md:hidden" /> Fest ”25
                 </h3>
-                <p className="text-xs font-light leading-normal md:text-base">
+                <p className="text-xs font-light leading-normal sm:text-sm md:text-base">
                   📍 04 Rumens road, Ikoyi, Lagos
                 </p>
-                <p className="text-xs font-light leading-6 md:text-base">
+                <p className="text-xs font-light leading-6 sm:text-sm md:text-base">
                   📧 {email}
                 </p>
                 {ticket_type && (
@@ -51,7 +51,7 @@ const StepThree: React.FC = () => {
                     alt="ticket type"
                     width={40}
                     height={40}
-                    className="absolute -right-[20%] top-0 -z-[2] w-[44%]"
+                    className="absolute -right-[30%] top-0 -z-[2] w-[44%] sm:-right-[40%] md:sm:-right-[36%] lg:-right-[20%]"
                   />
                 )}
               </div>
