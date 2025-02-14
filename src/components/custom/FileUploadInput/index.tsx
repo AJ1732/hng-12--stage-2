@@ -72,7 +72,7 @@ const FileUploadInput = forwardRef<HTMLInputElement, FileUploadInputProps>(
           className,
         )}
       >
-        <div className="flex aspect-square w-60 flex-col items-center justify-center space-y-2 rounded-[2rem] bg-accent-100 p-3">
+        <div className="flex aspect-square max-w-60 w-full flex-col items-center justify-center space-y-2 rounded-[2rem] bg-accent-100 p-3">
           <CloudDownloadSVG />
 
           <AnimatePresence>
