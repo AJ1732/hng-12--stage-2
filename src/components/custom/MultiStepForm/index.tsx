@@ -124,6 +124,7 @@ const MultiStepForm: React.FC = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className={cn(
             "rounded-[2rem] border border-accent-100 bg-accent-600 p-6",
+            "max-md:border-none max-md:bg-transparent max-md:p-0",
             last_step && "border-none bg-transparent p-0",
           )}
         >
